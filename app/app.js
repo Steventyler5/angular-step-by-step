@@ -1,21 +1,21 @@
-var app = angular.module("SongApp", ['ngRoute', 'angular.filter']);
+"use strict";
 
-app.config(['$routeProvider',
+/* exported MusicHistory */
+
+let MusicHistory = angular.module("SongApp", ["ngRoute"]);
+
+MusicHistory.config(["$routeProvider",
   function($routeProvider) {
     $routeProvider.
-      when('/', {
-        templateUrl: 'partials/song-list.html',
-        controller: 'SongCtrl'
+      when("/", {
+        templateUrl: "partials/song-list.html",
+        controller: "SongCtrl"
       }).
-      when('/songs/new', {
-        templateUrl: 'partials/song-form.html',
-        controller: 'SongFormCtrl'
-      }).
-      when('/songs/:songId', {
-        templateUrl: 'partials/song-detail.html',
-        controller: 'SongDetailCtrl'
+      when("/songs/:songId", {
+        templateUrl: "partials/song-detail.html",
+        controller: "SongDetailCtrl"
       }).
       otherwise({
-        redirectTo: '/'
+        redirectTo: "/"
       });
   }]);

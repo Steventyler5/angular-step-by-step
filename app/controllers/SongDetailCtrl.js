@@ -1,31 +1,60 @@
-app.controller("SongDetailCtrl", 
+"use strict";
+
+MusicHistory.controller("SongDetailCtrl", 
   ["$scope", 
   "$routeParams", 
-  "simple-storage", 
-  "song-storage",
+  "$http", 
   
-  function($scope, $routeParams, simple_storage, song_storage) {
-    $scope.selectedSong = {};
-    $scope.songId = $routeParams.songId;
+  function($scope, $routeParams, $http) {
 
-    console.log("simple_storage.getJunk(\"garbage\")", 
-      simple_storage.getJunk("garbage"));
+    $http.get("./data/songs.json")
+      .success(function (songObject) {
+        $scope.songs = songObject.songs;
 
-    console.log("$scope.songId", $scope.songId);
-
-    song_storage.then(
-      function(promiseResolutionData) {
-        console.log("promiseResolutionData", promiseResolutionData);
-
-        $scope.selectedSong = promiseResolutionData.filter(function(song) {
-          return song.id === parseInt($scope.songId);
+        $scope.selectedSong = $scope.songs.filter(function (s) {
+          return s.id === parseInt($routeParams.songId, 10);
         })[0];
-
-        console.log("$scope.selectedSong", $scope.selectedSong);
-      },
-      function(promiseRejectionError) {
-        console.log("error", promiseRejectionError);
-      }
-    );
+      });
   }
 ]);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// function getSongList() {
+
+//     // Return a promise for our async XHR
+//     return $q(function(resolve, reject) {
+
+//       // Perform some asynchronous operation, resolve or reject 
+//       // the promise when appropriate.
+//       $http.get('./data/songs.json')
+//       .success(
+//         function(objectFromJSONFile) {
+//           resolve(objectFromJSONFile.songs);
+//         },function(error) {
+//           reject(error);
+//         }
+//       );
+
+//     });
+//   }

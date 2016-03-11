@@ -1,5 +1,7 @@
-app.controller("SongFormCtrl", ["$scope",
-  function($scope) {
+"use strict";
 
+MusicHistory.controller("SongFormCtrl", ["$scope",
+  function($scope) {
+    $scope.songObject = {};
   }
 ]);
